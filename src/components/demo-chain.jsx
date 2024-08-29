@@ -1,4 +1,4 @@
-import { Physics, useBox, useConeTwistConstraint, useCylinder, useSphere } from "@react-three/cannon";
+import { Physics, useBox, useConeTwistConstraint, useCylinder, useSphere, usePlane } from "@react-three/cannon";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { createContext, createRef, useCallback, useContext, useMemo, useRef, useState } from "react";
 import { Color, Mesh } from "three";
@@ -11,7 +11,7 @@ function notUndefined(value) {
 
 const parent = createContext({
   position: [0, 0, 0],
-  ref: createRef(),
+  ref: createRef(), 
 });
 
 function ChainLink({ args = [0.5, 0.5, 2, 16], children, color = "white", maxMultiplier }) {
@@ -40,7 +40,7 @@ function ChainLink({ args = [0.5, 0.5, 2, 16], children, color = "white", maxMul
     maxMultiplier,
     pivotA: [0, -height / 2, 0],
     pivotB: [0, height / 2, 0],
-    twistAngle: 0,
+    twistAngle: Math.PI,
   });
 
   return (
@@ -73,6 +73,20 @@ function Chain({ children, length, maxMultiplier }) {
           </ChainLink>
         );
       }, children)}
+      {/* <ChainLink color={color} maxMultiplier={maxMultiplier}>
+        <ChainLink color={color} maxMultiplier={maxMultiplier}>
+          <ChainLink color={color} maxMultiplier={maxMultiplier}>
+            <ChainLink color={color} maxMultiplier={maxMultiplier}></ChainLink>
+          </ChainLink>
+        </ChainLink>
+      </ChainLink>
+      <ChainLink color={color} maxMultiplier={maxMultiplier}>
+        <ChainLink color={color} maxMultiplier={maxMultiplier}>
+          <ChainLink color={color} maxMultiplier={maxMultiplier}>
+            <ChainLink color={color} maxMultiplier={maxMultiplier}></ChainLink>
+          </ChainLink>
+        </ChainLink>
+      </ChainLink> */}
     </>
   );
 }
@@ -135,11 +149,11 @@ function ChainScene() {
         <ambientLight intensity={0.5 * Math.PI} />
         <pointLight position={[-10, -10, -10]} intensity={1 * Math.PI} decay={0} />
         <spotLight position={[10, 10, 10]} angle={0.8} penumbra={1} intensity={1 * Math.PI} decay={0} castShadow />
-        <Physics gravity={[0, -40, 0]} allowSleep={false}>
+        <Physics gravity={[0, 40, 0]} allowSleep={false}>
           <PointerHandle size={1.5}>
             <Chain length={7} />
           </PointerHandle>
-          {maxMultiplierExamples.map((maxMultiplier, index) => (
+          {/* {maxMultiplierExamples.map((maxMultiplier, index) => (
             <StaticHandle
               key={`${resetCount}-${maxMultiplier}`}
               radius={1.5}
@@ -147,7 +161,7 @@ function ChainScene() {
             >
               <Chain maxMultiplier={maxMultiplier} length={8} />
             </StaticHandle>
-          ))}
+          ))} */}
         </Physics>
       </Canvas>
       <div style={style}>

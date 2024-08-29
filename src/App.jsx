@@ -8,14 +8,15 @@ import ChainScene from "./components/demo-chain";
 function App() {
   return (
     <>
-      {/* <Canvas shadows camera={{ position: [3, 3, 3], fov: 30 }}>
+      <Canvas shadows camera={{ fov: 50, position: [0, 5, 20] }}>
         <color attach="background" args={["#ececec"]} />
         <Physics>
-          <Debug color="black" scale={1.1}></Debug>
+          <Debug color="red" scale={1.1}>
           <Experience />
+          </Debug>
         </Physics>
-      </Canvas> */}
-      <ChainScene />
+      </Canvas>
+      {/* <ChainScene /> */}
     </>
   );
 }
